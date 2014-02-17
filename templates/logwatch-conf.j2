@@ -1,0 +1,38 @@
+# {{ ansible_managed }}
+
+# Default Log Directory
+LogDir = {{ logwatch_log_dir }}
+
+# You can override the default temp directory (/tmp) here
+TmpDir = {{ logwatch_tmp_dir }}
+
+# Output/Format Options
+Output = {{ logwatch_output }}
+Format = {{ logwatch_format }}
+Encode = {{ logwatch_encode }}
+
+# Default person to mail reports to
+MailTo   = {{ logwatch_admin_email }}
+MailFrom = {{ logwatch_sender_email }}
+
+# The default time range for the report...
+Range = {{ logwatch_range }}
+
+# The default detail level for the report.
+Detail = {{ logwatch_detail }}
+
+# The 'Service' option expects either the name of a filter
+# (in /usr/share/logwatch/scripts/services/*) or 'All'.
+Service = All
+
+# You can also disable certain services (when specifying all)
+Service = "-zz-network"     # Prevents execution of zz-network service, which
+                            # prints useful network configuration info.
+Service = "-zz-sys"         # Prevents execution of zz-sys service, which
+                            # prints useful system configuration info.
+Service = "-eximstats"      # Prevents execution of eximstats service, which
+                            # is a wrapper for the eximstats program.
+
+# By default we assume that all Unix systems have sendmail or a sendmail-like MTA.
+# The mailer code prints a header with To: From: and Subject:.
+mailer = "{{ logwatch_mailer }}"

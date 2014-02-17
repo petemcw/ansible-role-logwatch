@@ -1,0 +1,6 @@
+---
+# Defines variables for Debian/Ubuntu
+
+logwatch_config_dir: '/usr/share/logwatch/default.conf'
+logwatch_packages:
+  - 'logwatch'

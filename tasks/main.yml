@@ -1,0 +1,29 @@
+---
+# Defines tasks to install and configure Logwatch
+
+- name: Include the OS specific varibles
+  include_vars: '{{ ansible_os_family }}.yml'
+  tags:
+    - common
+    - logwatch
+
+- name: Install packages for Debian derivatives
+  apt: >
+    pkg={{ item }}
+    update_cache=yes
+    state=latest
+  with_items: logwatch_packages
+  when: ansible_os_family == 'Debian'
+  tags:
+    - common
+    - logwatch
+
+- name: Write Logwatch configuration templates
+  template: >
+    src=logwatch-conf.j2
+    dest={{ logwatch_config_dir }}/logwatch.conf
+    mode=0644 owner=root group=root
+    backup=yes
+  tags:
+    - common
+    - logwatch
