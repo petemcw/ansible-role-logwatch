@@ -1,10 +1,13 @@
 # Logwatch Role for Ansible
 
-This role installs Logwatch which is an application that helps with simple log management by daily analyzing and reporting a short digest from activities taking place on your server.
+This role installs Logwatch which is an application that helps with simple log
+management by daily analyzing and reporting a short digest from activities taking
+place on your server.
 
 ## Requirements
 
-This role requires [Ansible](http://www.ansibleworks.com/) version 1.4 or higher and the Debian/Ubuntu platform.
+This role requires [Ansible](http://www.ansibleworks.com/) version 1.4 or higher
+and the Debian/Ubuntu platform.
 
 ## Role Variables
 
