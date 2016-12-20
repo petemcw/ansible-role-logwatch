@@ -1,13 +1,11 @@
 # Logwatch Role for Ansible
 
 This role installs Logwatch which is an application that helps with simple log
-management by daily analyzing and reporting a short digest from activities taking
-place on your server.
+management by daily analyzing and reporting a short digest from activities taking place on your server.
 
 ## Requirements
 
-This role requires [Ansible](http://www.ansibleworks.com/) version 1.4 or higher
-and the Debian/Ubuntu platform.
+This role requires [Ansible](http://www.ansibleworks.com/) version 2.0 or higher and the Debian/Ubuntu platform.
 
 ## Role Variables
 
@@ -54,7 +52,7 @@ logwatch_tmp_dir: '/var/cache/logwatch'
     ---
     # This playbook installs Logwatch
 
-    - name: Apply common users to all nodes
+    - name: Install logwatch to all nodes
       hosts: all
       roles:
         - logwatch
@@ -66,7 +64,7 @@ logwatch_tmp_dir: '/var/cache/logwatch'
     ---
     # This playbook installs Logwatch
 
-    - name: Apply common users to all nodes
+    - name: Install logwatch to all nodes
       hosts: all
       roles:
         - { role: logwatch,
@@ -78,7 +76,3 @@ logwatch_tmp_dir: '/var/cache/logwatch'
 ## Dependencies
 
 None.
-
-## License
-
-MIT.
