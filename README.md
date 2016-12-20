@@ -1,5 +1,7 @@
 # Logwatch Role for Ansible
 
+[![Build Status](https://travis-ci.org/petemcw/ansible-role-logwatch.svg?branch=master)](https://travis-ci.org/petemcw/ansible-role-logwatch)
+
 This role installs Logwatch which is an application that helps with simple log
 management by daily analyzing and reporting a short digest from activities taking place on your server.
 
