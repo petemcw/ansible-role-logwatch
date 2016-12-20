@@ -1,0 +1,5 @@
+---
+- name: Install Logwatch to all nodes
+  hosts: all
+  roles:
+    - test_role
