@@ -1,6 +1,6 @@
 ---
-# Defines variables for Debian/Ubuntu
+# Defines variables for RedHat/CentOS
 
 logwatch_config_dir: "/etc/logwatch/conf"
 logwatch_packages:
-  - "logwatch"
+  - "logwatch.noarch"
