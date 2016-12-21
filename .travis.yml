@@ -9,11 +9,6 @@ env:
     INIT: /sbin/init
     RUN_OPTS: "--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
     PLAYBOOK: test.yml
-  - DISTRIBUTION: centos
-    VERSION: 6
-    INIT: /sbin/init
-    RUN_OPTS: ""
-    PLAYBOOK: test.yml
   - DISTRIBUTION: ubuntu
     VERSION: 16.04
     INIT: /lib/systemd/systemd
