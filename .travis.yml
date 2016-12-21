@@ -4,18 +4,21 @@ sudo: required
 
 # A list of OSes to use for testing.
 env:
-  - distro: ubuntu1604
-    init: /lib/systemd/systemd
-    run_opts: '--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro'
-    playbook: test.yml
-  - distro: ubuntu1404
-    init: /sbin/init
-    run_opts: ''
-    playbook: test.yml
-  - distro: ubuntu1204
-    init: /sbin/init
-    run_opts: ''
-    playbook: test.yml
+  - DISTRIBUTION: ubuntu
+    VERSION: 16.04
+    INIT: /lib/systemd/systemd
+    RUN_OPTS: '--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro'
+    PLAYBOOK: test.yml
+  - DISTRIBUTION: ubuntu
+    VERSION: 14.04
+    INIT: /sbin/init
+    RUN_OPTS: ''
+    PLAYBOOK: test.yml
+  - DISTRIBUTION: ubuntu
+    VERSION: 12.04
+    INIT: /sbin/init
+    RUN_OPTS: ''
+    PLAYBOOK: test.yml
 
 # Tell Travis to start Docker when it brings up an environment.
 services:
@@ -23,7 +26,7 @@ services:
 
 # Pull the image from Docker Hub for the OS under test.
 before_install:
-  - 'docker pull petemcw/docker-ansible-${distro}:latest'
+  - docker pull petemcw/docker-ansible-${DISTRIBUTION}:${VERSION}
 
 # Start the container from the image and perform tests.
 script:
@@ -31,17 +34,17 @@ script:
   - container_id=$(mktemp)
 
   # Run container detached.
-  - 'docker run --detach --volume="${PWD}":/etc/ansible/roles/test_role:ro ${run_opts} petemcw/docker-ansible-${distro}:latest "${init}" > "${container_id}"'
+  - docker run --detach --volume="${PWD}":/etc/ansible/roles/test_role:ro ${RUN_OPTS} petemcw/docker-ansible-${DISTRIBUTION}:${VERSION} "${INIT}" > "${container_id}"
 
   # Ansible syntax check.
-  - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm ansible-playbook /etc/ansible/roles/test_role/tests/${playbook} --syntax-check'
+  - docker exec --tty "$(cat ${container_id})" env TERM=xterm ansible-playbook /etc/ansible/roles/test_role/tests/${PLAYBOOK} --syntax-check
 
   # Run the role.
-  - 'docker exec "$(cat ${container_id})" ansible-playbook /etc/ansible/roles/test_role/tests/${playbook}'
+  - docker exec --tty "$(cat ${container_id})" ansible-playbook /etc/ansible/roles/test_role/tests/${PLAYBOOK}
 
   # Check if idempotent.
   - idempotence=$(mktemp)
-  - 'docker exec "$(cat ${container_id})" ansible-playbook /etc/ansible/roles/test_role/tests/${playbook} | tee -a ${idempotence}'
+  - docker exec --tty "$(cat ${container_id})" ansible-playbook /etc/ansible/roles/test_role/tests/${PLAYBOOK} | tee -a ${idempotence}
   - >
     tail ${idempotence}
     | grep -q 'changed=0.*failed=0'
@@ -57,3 +60,4 @@ script:
 
 # Notify Ansible Galaxy when a role builds successfully.
 notifications:
+  email: false
