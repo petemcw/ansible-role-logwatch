@@ -4,3 +4,4 @@
 logwatch_config_dir: "/etc/logwatch/conf"
 logwatch_packages:
   - "logwatch"
+  - "sendmail"
