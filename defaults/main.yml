@@ -2,13 +2,13 @@
 # The variables file used for Logwatch playbooks.
 # If not overriden in inventory or as a parameter, this is the value that will be used
 
-logwatch_output: "mail"
-logwatch_format: "text"
-logwatch_encode: "none"
 logwatch_admin_email: "root"
-logwatch_sender_email: "Logwatch"
-logwatch_range: "yesterday"
 logwatch_detail: "Med"
+logwatch_encode: "none"
+logwatch_format: "text"
+logwatch_log_dir: "/var/log"
 logwatch_mailer: "/usr/sbin/sendmail -t"
-logwatch_log_dir: '/var/log'
-logwatch_tmp_dir: '/var/cache/logwatch'
+logwatch_output: "mail"
+logwatch_range: "yesterday"
+logwatch_sender_email: "Logwatch"
+logwatch_tmp_dir: "/var/cache/logwatch"
