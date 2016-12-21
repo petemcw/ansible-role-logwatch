@@ -48,5 +48,12 @@ script:
     && (echo 'Idempotence test: pass' && exit 0)
     || (echo 'Idempotence test: fail' && exit 1)
 
+  # Test the role.
+  - >
+    docker exec --tty "$(cat ${container_id})" logwatch --detail Low --output stdout --range today
+    | grep -q 'Logwatch End'
+    && (echo 'Run test: pass' && exit 0)
+    || (echo 'Run test: fail' && exit 1)
+
 # Notify Ansible Galaxy when a role builds successfully.
 notifications:
