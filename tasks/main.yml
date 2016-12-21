@@ -23,3 +23,11 @@
     backup=yes
   tags:
     - logwatch
+
+- name: Create cache directory
+  file: >
+    path="{{ logwatch_tmp_dir }}"
+    state=directory
+    mode=0755 owner=root group=root
+  tags:
+    - logwatch
