@@ -7,7 +7,7 @@ management by daily analyzing and reporting a short digest from activities takin
 
 ## Requirements
 
-This role requires [Ansible](http://www.ansibleworks.com/) version 2.0 or higher and the Debian/Ubuntu platform.
+This role requires [Ansible](http://www.ansibleworks.com/) version 2.0 or higher and the Debian/Ubuntu/CentOS/RedHat platforms.
 
 ## Role Variables
 

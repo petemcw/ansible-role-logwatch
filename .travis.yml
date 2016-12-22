@@ -4,20 +4,25 @@ sudo: required
 
 # A list of OSes to use for testing.
 env:
+  - DISTRIBUTION: centos
+    VERSION: 7
+    INIT: /sbin/init
+    RUN_OPTS: "--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
+    PLAYBOOK: test.yml
   - DISTRIBUTION: ubuntu
     VERSION: 16.04
     INIT: /lib/systemd/systemd
-    RUN_OPTS: '--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro'
+    RUN_OPTS: "--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
     PLAYBOOK: test.yml
   - DISTRIBUTION: ubuntu
     VERSION: 14.04
     INIT: /sbin/init
-    RUN_OPTS: ''
+    RUN_OPTS: ""
     PLAYBOOK: test.yml
   - DISTRIBUTION: ubuntu
     VERSION: 12.04
     INIT: /sbin/init
-    RUN_OPTS: ''
+    RUN_OPTS: ""
     PLAYBOOK: test.yml
 
 # Tell Travis to start Docker when it brings up an environment.
@@ -54,7 +59,7 @@ script:
   # Test the role.
   - >
     docker exec --tty "$(cat ${container_id})" logwatch --detail Low --output stdout --range today
-    | grep -q 'Logwatch End'
+    | grep "#### Logwatch" | wc -l | grep -q '2'
     && (echo 'Run test: pass' && exit 0)
     || (echo 'Run test: fail' && exit 1)
 
