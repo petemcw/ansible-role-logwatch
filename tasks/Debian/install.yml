@@ -1,23 +1,11 @@
 ---
 # Defines tasks for Debian/Ubuntu installation
 
-- name: Check if already installed
-  stat: >
-    path="{{ logwatch_config_dir }}/logwatch.conf"
-  register: logwatch_installed
-  tags:
-    - logwatch
-
-- name: Update packages cache if not installed
-  apt: >
-    update_cache=yes
-  when: logwatch_installed.stat.exists == false
-  tags:
-    - logwatch
-
 - name: Install packages
   apt: >
     name="{{ item }}"
+    update_cache=yes
+    cache_valid_time=86400
     state=latest
   with_items: "{{ logwatch_packages }}"
   tags:
